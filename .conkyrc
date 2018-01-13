@@ -1,22 +1,69 @@
 conky.config = {
-        alignment = 'top_right',
-        background = true,
-        color2 = '74c4b4',
-        cpu_avg_samples = 2,
-        default_color = '80FFF9',
-        double_buffer = true,
-        font = 'Bitstream Vera Sans:size=12',
-        draw_shades = false,
-        gap_x = 25,
-        gap_y = 13,
-        minimum_width = 200,
-        no_buffers = true,
-        own_window = true,
-        own_window_type = 'override',
-        own_window_transparent = true,
-        update_interval = 1.0,
-        use_xft = true,
+	alignment = 'top_right',
+	background = true,
+	color2 = '74c4b4',
+	cpu_avg_samples = 2,
+	default_color = '80FFF9',
+	double_buffer = true,
+	font = 'Bitstream Vera Sans:size=16',
+	draw_shades = false,
+	gap_x = 25,
+	gap_y = 13,
+	minimum_width = 200,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 1.0,
+	use_xft = true,
 }
-
 conky.text = [[
 
+#
+#${font}${execi 5 radeontop -d- -l1 | grep -o 'gpu [0-9]\{1,3\}' | cut -c 5-7 }
+${voffset 8}$color2${font Bitstream Vera Sans:size=16}${time %A}$font\
+${voffset -8}$alignr$color${font Bitstream Vera Sans:size=38}${time %e}$font
+$color${voffset -30}$color${font Bitstream Vera Sans:size=18}${time %b}$font\
+${voffset -3} $color${font Bitstream Vera Sans:size=20}${time %Y}$font$color2$hr
+
+${font NotoSans-Bold:size=28}${alignr}${color}${time %I:%M %p}
+#${voffset 1}$font$alignr${execi 10000 awk -F= '/TION/ {print $2}' /etc/lsb-release |sed 's/"//g'} \
+#${execi 10000 awk -F= '/EASE=/ {printf $2" "} /NAME/ {print $2}' /etc/lsb-release}
+#${voffset 10}${color2}${alignr}${execi 1200 whoami}@${nodename}
+${alignr}${color2}${font Bitstream Vera Sans:size=12}uptime: ${color}${uptime_short}
+${voffset 5}${color2}${font Bitstream Vera Sans:size=14}${alignr}kernel: ${color}${kernel}
+
+${font Bitstream Vera Sans:size=14}${color}Network IP: ${alignr}${color1}${addr enp3s0}
+
+${font NotoSans-Bold:size=12}${color}Core ${goto 46}1: ${goto 64}${font NotoSans-Bold:size=10}${color #ffffff}${hwmon temp 1}°C ${goto 102}${color2}${cpubar cpu1 6,100} ${alignr}${color1}${freq_g 1} GHz
+
+${font NotoSans-Bold:size=12}${color}Core ${goto 46}2: ${goto 64}${font NotoSans-Bold:size=10}${color #ffffff}${hwmon temp 2}°C${goto 102}${color2}${cpubar cpu2 6,100} ${alignr}${color1}${freq_g 2} GHz
+
+${font NotoSans-Bold:size=12}${color}Core ${goto 46}3: ${goto 64}${font NotoSans-Bold:size=10}${color #ffffff}${hwmon temp 3}°C${goto 102}${color2}${cpubar cpu3 6,100} ${alignr}${color1}${freq_g 2} GHz
+
+${font NotoSans-Bold:size=12}${color}Core ${goto 46}4: ${goto 64}${font NotoSans-Bold:size=10}${color #ffffff}${hwmon temp 4}°C${goto 102}${color2}${cpubar cpu4 6,100} ${alignr}${color1}${freq_g 2} GHz
+#${exec cat /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input | cut -c-2 }°C 
+${font NotoSans-Bold:size=12}${voffset 10}${goto 40}${color #ffffff}${top name 1}$alignr${top cpu 1}%
+${goto 40}${top name 2}$alignr${top cpu 2}%
+${goto 40}${top name 3}$alignr${top cpu 3}%
+#${goto 40}$color2${top name 4}$alignr$color${top cpu 4}%
+# ${goto 40}$color2${top name 5}$alignr$color${top cpu 5}%
+#
+${font NotoSans-Bold:size=12}${voffset 28}${color}RAM: 
+${goto 40}${font NotoSans-Bold:size=10}${color #ffffff} ${mem}${color #ffffff}${alignc}${goto 96}${membar 6,100} ${color #ffffff}$alignr${memmax}
+${font NotoSans-Bold:size=11}${voffset 2}${color}$alignr Cached: ${cached}
+${font NotoSans-Bold:size=12}${goto 40}${voffset 5}${color #ffffff}${top_mem name 1}$alignr$color${top_mem mem_res 1}
+${goto 40}${color #ffffff}${top_mem name 2}$alignr$color${top_mem mem_res 2}
+${goto 40}${color #ffffff}${top_mem name 3}$alignr$color${top_mem mem_res 3}
+#${goto 40}$color2${top_mem name 4}$alignr$color${top_mem mem_res 4}
+# ${goto 40}$color2${top_mem name 5}$alignr$color${top_mem mem_res 5}
+#
+#${voffset 10}${goto 40}${color}Swap${font Bitstream Vera Sans:bold:size=14}$alignr${swap}/ ${swapfree}
+
+${color}${font Bitstream Vera Sans:bold:size=13}Shortcuts:
+${color2}${font Bitstream Vera Sans:size=12}Browser: ${alignr}Super+F2
+EMail: ${alignr}Super+F3
+VLC: ${alignr}Super+F4
+Terminal: ${alignr}Super+enter
+
+]]
