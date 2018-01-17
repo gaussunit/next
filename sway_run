@@ -1,0 +1,7 @@
+#!/bin/bash
+
+GDK_BACKEND=wayland
+CLUTTER_BACKEND=wayland
+QT_QPA_PLATFORM=wayland-egl
+QT_DISABLE_WINDOWDECORATION=1
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session sway -d 2> ~/sway.log
